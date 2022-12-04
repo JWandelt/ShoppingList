@@ -6,10 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "shopping_items")
 data class ShoppingItem(
-//    @ColumnInfo(name = "list_number")
-//    var list : Int,
-//    @ColumnInfo(name = "list_name")
-//    var listName : String,
+    @ColumnInfo(name = "list_id")
+    var listID : Int,
     @ColumnInfo(name = "item_name")
     var name : String,
     @ColumnInfo(name = "item_amount")
