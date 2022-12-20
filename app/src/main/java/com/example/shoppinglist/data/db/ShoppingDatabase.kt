@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.shoppinglist.data.db.entities.ShoppingItem
+import com.example.shoppinglist.data.db.entities.ShoppingList
 
-@Database(entities = [ShoppingItem::class], version = 1)
+@Database(entities = [ShoppingItem::class, ShoppingList::class], version = 1)
 abstract class ShoppingDatabase :RoomDatabase() {
 
     abstract fun getShoppingDao() : ShoppingDao
