@@ -1,21 +1,57 @@
 package com.example.shoppinglist.other
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.graphics.Color
+import android.graphics.ColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.NotificationCompat.getColor
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.res.ResourcesCompat.getColor
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.example.shoppinglist.data.db.entities.ShoppingList
 import com.example.shoppinglist.ui.shoppinglist.ShoppingListViewModel
+import com.google.android.material.color.MaterialColors.getColor
 
 class ShoppingListAdapter(
     var lists : List<ShoppingList>,
     private val viewModel : ShoppingListViewModel
 ) : RecyclerView.Adapter<ShoppingListAdapter.ShoppingListViewHolder>(){
 
-    inner class ShoppingListViewHolder(listView : View) : RecyclerView.ViewHolder(listView){}
+    inner class ShoppingListViewHolder(listView : View) : RecyclerView.ViewHolder(listView), View.OnClickListener{
+        private var normalColor: Int = Color.WHITE
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(view : View){
+            // Show a toast message when the item is clicked:
+            val animator1 = ValueAnimator.ofObject(ArgbEvaluator(), normalColor, Color.parseColor("#FFCCCC"))
+            animator1.duration = 500
+            animator1.addUpdateListener { animator -> itemView.setBackgroundColor(animator.animatedValue as Int) }
+            animator1.start()
+
+            // Animate the color back to the normal color after a delay:
+            val animator2 = ValueAnimator.ofObject(ArgbEvaluator(), Color.parseColor("#FFCCCC"), normalColor)
+            animator2.startDelay = 500 // Set the delay to 500 milliseconds
+            animator2.duration = 500
+            animator2.addUpdateListener { animator -> itemView.setBackgroundColor(animator.animatedValue as Int) }
+            animator2.start()
+            val context = view.context
+            val text = "Item clicked"
+            val duration = Toast.LENGTH_SHORT
+            val toast = Toast.makeText(context, text, duration)
+            toast.show()
+        }
+    }
 
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : ShoppingListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.shopping_list, parent, false)
