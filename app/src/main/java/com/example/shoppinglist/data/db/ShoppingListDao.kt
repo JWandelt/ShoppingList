@@ -9,19 +9,16 @@ import com.example.shoppinglist.data.db.entities.ShoppingList
 interface ShoppingListDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertShoppingList(list : ShoppingList)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertShoppingItem(item : ShoppingItem)
+    suspend fun upsert(list : ShoppingList)
 
     @Delete
-    suspend fun delete(item : ShoppingList)
+    suspend fun delete(list : ShoppingList)
 
     @Transaction
     @Query("SELECT * FROM shopping_lists")
-    suspend fun getAllLists() : LiveData<List<ShoppingList>>
+    fun getAllLists() : LiveData<List<ShoppingList>>
 
     @Transaction
-    @Query("SELECT * FROM shopping_lists WHERE schoolID = :listID")
-    suspend fun getListWithItems(listID : Int) : List<ListWithItems>
+    @Query("SELECT * FROM shopping_lists WHERE listID = :listID")
+    fun getListWithItems(listID : Int) : List<ListWithItems>
 }

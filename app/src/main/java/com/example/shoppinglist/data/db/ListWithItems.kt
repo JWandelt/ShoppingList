@@ -8,7 +8,7 @@ import com.example.shoppinglist.data.db.entities.ShoppingList
 data class ListWithItems(
     @Embedded val list : ShoppingList,
     @Relation(
-        parentColumn = "schoolID",
+        parentColumn = "listID",
         entityColumn = "list_id"
     )
     val items : List<ShoppingItem>

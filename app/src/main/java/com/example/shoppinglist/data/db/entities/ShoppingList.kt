@@ -10,5 +10,5 @@ data class ShoppingList(
     var name : String) {
 
     @PrimaryKey(autoGenerate = true)
-    var schoolID : Int? = null
+    var listID : Int? = null
 }

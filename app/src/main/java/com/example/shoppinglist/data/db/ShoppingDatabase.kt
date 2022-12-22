@@ -11,6 +11,7 @@ import com.example.shoppinglist.data.db.entities.ShoppingList
 abstract class ShoppingDatabase :RoomDatabase() {
 
     abstract fun getShoppingDao() : ShoppingDao
+    abstract fun getShoppingListDao() : ShoppingListDao
 
     companion object{
         @Volatile
